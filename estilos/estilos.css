@@ -43,6 +43,10 @@ h1, h2{
     text-align: center;
 }
 
+h4{
+    text-align: center;
+    margin: 5px;
+}
 
 section{
 
@@ -50,7 +54,7 @@ section{
     margin:50px 40%;
     background-color: aquamarine;
     width: 300px;
-    height: 350px;
+    height: 400px;
     font-size: 20px;
     padding: 20px;
     border:3px solid  black ;
@@ -63,7 +67,6 @@ input{
     background-color:ghostwhite;
     border-radius: 3px;
     border:1px solid black;
-    text-transform: capitalize;
     text-align: center;
 }
 form{
@@ -97,8 +100,8 @@ button{
 
 div{
     
-    background-color: darkcyan;
-    color: azure;
+    
+    color:black;
     font-style: italic;
     font-size: 20px;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -106,3 +109,33 @@ div{
     text-transform: capitalize;
     padding: 1%;
 }
+
+.confirmar{
+    width: 100px !important; 
+    height: 50px !important;
+    text-align: center !important;
+    padding: 10px;
+    margin: 10px, 10px;
+}
+
+.cancelar{
+    width: 100px !important; 
+    height: 50px !important;
+    text-align: center !important;
+    padding: 10px;
+    margin: 10px, 10px;
+}
+
+.titulo{
+    color: black !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.finalizar{
+    width: 100px !important; 
+    height: 50px !important;
+    text-align: center !important;
+    padding: 10px;
+    margin: 10px, 10px;
+}
+

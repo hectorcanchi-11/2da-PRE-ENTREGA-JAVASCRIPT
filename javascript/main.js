@@ -2,7 +2,7 @@
 // SEGUNA PRE ENTREGA JAVASCRIPT HECTOR CANCHICA CODERHOUSE
 
 
-alert("BIENVENIDO A INVERSIONES HKS DONDE PODRAS ENVIAR DINERO A DISTINTAS PARTES DEL MUNDO")
+
 
 const Remesa = function(pais, moneda, cantidad){
 
@@ -33,12 +33,11 @@ function generarNumeroTransaccion() {
 
 
 
-
 function enviardinero(){
     
     let nombre= document.getElementById("nombre").value.toLowerCase()
     let apellido= document.getElementById("apellido").value.toLowerCase()
-    let correo= document.getElementById("correo").value
+    let correo= document.getElementById("correo").value.toLowerCase()
     let monto= document.getElementById("monto").value
     let paises= document.getElementById("paisdestino").value.toLowerCase()
 
@@ -50,11 +49,11 @@ function enviardinero(){
     while(enviardenuevo){
 
     // let enviarpais = prompt("indica el pais al cual deseas enviar dinero").toLowerCase().trim()
-        let resultado =  listapais.filter((x) => x.pais.toLowerCase().includes(paises))
+        let resultado =  listapais.filter((x) => x.pais.toLowerCase()===(paises))
     // let monto= parseFloat(prompt("ingrese el monto a enviar"))
 
 
-    if(paises==""){
+    if(paises==="" ){
         alert("ingresa un pais valido")
         return}
 
@@ -67,9 +66,11 @@ function enviardinero(){
     }
     
 else{
-    alert("aun no enviamos dinero a " + paises)
+    alert("aun no enviamos dinero a " + paises + " pero pronto estara disponible")
     return
 }
+
+
 const montodisponible = resultado.map(function(precio){
 return precio.cantidad})
 
@@ -90,42 +91,125 @@ return precio.cantidad})
     alert("usted desea enviar "+ monto +  " " + tipo + " " + "hacia " + paises)
 
     numerodeTransaccion = generarNumeroTransaccion()
-        alert("Su número de transacción es " + numerodeTransaccion);
+        // alert("Su número de transacción es " + numerodeTransaccion);
+        
 
-            enviardenuevo = confirm("desea realizar otro envio?")
+        let datosenvio = document.getElementById("datosenvio");
+        datosenvio.innerHTML = ""
+    
+        let nombreenvio = document.createElement("div")
+        nombreenvio.textContent="Nombre: " + nombre
+    
+        let apellidoenvio = document.createElement("div")
+        apellidoenvio.textContent= "Apellido: " + apellido
+    
+        let correoenvio = document.createElement("div")
+        correoenvio.textContent= "Correo: " + correo
+    
+        let montoenvio = document.createElement("div")
+        montoenvio.textContent= "Cantidad: " + monto + "$"
+    
+        let paisenvio = document.createElement("div")
+        paisenvio.textContent= "Pais De Destino: " + paises
+    
+        let numdetransferencia = document.createElement("div")
+        numdetransferencia.textContent= "el numero de transaccion es: " + numerodeTransaccion
+    
+        
+    
+        datosenvio.appendChild(nombreenvio)
+        datosenvio.appendChild(apellidoenvio)
+        datosenvio.appendChild(correoenvio)
+        datosenvio.appendChild(montoenvio)
+        datosenvio.appendChild(paisenvio)
+        datosenvio.appendChild(numdetransferencia)
+        
+        let botonconfirmar=document.createElement("button")
+        botonconfirmar.textContent=("confirmar transaccion")
+        botonconfirmar.addEventListener("click", function(){
+            Swal.fire({
+                title: "Excelente!",
+                text: "tu transferencia ha sido enviada!",
+                icon: "succes"
+        });
+        setTimeout(() =>  {
+            limpiarformulario()
+        }, 2000);
+        
+        })
+    
+        let botoncancelar=document.createElement("button")
+        botoncancelar.textContent=("volver atras")
+        botoncancelar.addEventListener("click",function(){
+            Swal.fire({
+                title: "Estas Seguro Que Deseas Salir?",
+                text: "No Podras Revertir los Cambios!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, Salir!",
+                cancelButtonText: "cancelar",
+                customClass:{
+                    confirmButton:"confirmar",
+                    title: "titulo",
+                    cancelButton:"cancelar"
+                },
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: "",
+                    text: "Puedes volver A Intentarlo De Nuevo",
+                    icon: "info",
+                    
+                  });
+
+                  setTimeout(() =>  {
+                    limpiarformulario()
+                }, 2000);
+                }
+
+              });
+
+
+            
+        })
+    
+        datosenvio.appendChild(botonconfirmar)
+        datosenvio.appendChild(botoncancelar)
+    
+
+        enviardenuevo = confirm("desea realizar otro envio?")
     }
     
-
-    let nombreenvio = document.createElement("div")
-    nombreenvio.textContent="Nombre: " + nombre
-
-    let apellidoenvio = document.createElement("div")
-    apellidoenvio.textContent= "Apellido: " + apellido
-
-    let correoenvio = document.createElement("div")
-    correoenvio.textContent= "Correo: " + correo
-
-    let montoenvio = document.createElement("div")
-    montoenvio.textContent= "Cantidad: " + monto + "$"
-
-    let paisenvio = document.createElement("div")
-    paisenvio.textContent= "Pais De Destino: " + paises
-
-    let numdetransferencia = document.createElement("div")
-    numdetransferencia.textContent= "el numero de transaccion es: " + numerodeTransaccion
+    function limpiarformulario(){
+        
+        document.getElementById("nombre").value = ""
+        document.getElementById("apellido").value = ""
+        document.getElementById("correo").value = ""
+        document.getElementById("monto").value = ""
+        document.getElementById("paisdestino").value = ""
+        document.getElementById("datosenvio").innerHTML = ""
+    }    
+    
+    
+    localStorage.setItem("InversionesHks",JSON.stringify(listapais))
+    console.log("se envia al localstorage")
 
     
-
-    datosenvio.appendChild(nombreenvio)
-    datosenvio.appendChild(apellidoenvio)
-    datosenvio.appendChild(correoenvio)
-    datosenvio.appendChild(montoenvio)
-    datosenvio.appendChild(paisenvio)
-    datosenvio.appendChild(numerodeTransaccion)
-
-
 }
 
-let enviodinero =
-    document.getElementById("button");
-    enviodinero.addEventListener("click",enviardinero);
+
+// let enviodinero =
+//     document.getElementById("button");
+//     enviodinero.addEventListener("click",enviardinero)
+
+    document.getElementById("button").addEventListener("click", () => {
+        enviardinero().then((message) => {
+            console.log(message);
+        }).catch((error) => {
+            console.error(error);
+        }
+    )}
+)
